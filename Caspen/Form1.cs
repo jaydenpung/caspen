@@ -143,6 +143,10 @@ namespace Caspen
         {
             processFiles(videoFiles, videoFileEpisodeIndex, videoFileEpisodeLength);
             processFiles(subtitleFiles, subtitleFileEpisodeIndex, subtitleFileEpisodeLength);
+
+            SuccessForm frmSUccess = new SuccessForm();
+            frmSUccess.StartPosition = FormStartPosition.CenterParent;
+            frmSUccess.ShowDialog();
         }   
 
         private void processFiles(List<string> files, int index, int length)
@@ -158,10 +162,6 @@ namespace Caspen
             catch (Exception ex)
             {
             }
-
-            SuccessForm frmSUccess = new SuccessForm();
-            frmSUccess.StartPosition = FormStartPosition.CenterParent;
-            frmSUccess.ShowDialog();
         }
 
         private void reset()
