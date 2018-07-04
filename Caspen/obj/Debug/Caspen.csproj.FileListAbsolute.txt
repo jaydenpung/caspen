@@ -1,0 +1,13 @@
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\bin\Debug\Caspen.exe
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\bin\Debug\Caspen.pdb
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.csprojResolveAssemblyReference.cache
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.Properties.Resources.resources
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.csproj.GenerateResource.Cache
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.exe
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.pdb
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\bin\Debug\Caspen.exe.config
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.Form1.resources
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.About.resources
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\obj\Debug\Caspen.SuccessForm.resources
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\bin\Debug\Ookii.Dialogs.Wpf.dll
+c:\users\jay\documents\visual studio 2017\Projects\Caspen\Caspen\bin\Debug\Ookii.Dialogs.Wpf.xml
