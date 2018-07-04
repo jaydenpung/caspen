@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using Caspen.Model;
+using System.IO.Compression;
 
 namespace Caspen
 {
@@ -79,6 +80,13 @@ namespace Caspen
             if (folderSelector.ShowDialog() == true)
             {
                 reset();
+
+                //Handle archived subtitle files
+                var archiveExtensions = new List<string> { ".zip", ".7z", ".rar" };
+                var archiveFiles = Directory.GetFiles(folderSelector.SelectedPath, "*", SearchOption.AllDirectories)
+                    .Where(s => archiveExtensions.Contains(Path.GetExtension(s))).ToList<string>();
+                handleArchivedFiles(archiveFiles);
+
                 var videoExtensions = new List<string> { ".avi", ".wmv", ".mp4", ".mov", ".mkv", ".webm", ".mpeg", ".m4v" };
                 subtitleFiles = Directory.GetFiles(folderSelector.SelectedPath, "*.srt", SearchOption.AllDirectories)
                     .OrderBy(filename => filename).ToList<string>();
@@ -86,10 +94,49 @@ namespace Caspen
                     .Where(s => videoExtensions.Contains(Path.GetExtension(s)))
                     .OrderBy(filename => filename).ToList<string>();
 
+
                 tbVideoFileName.Text = videoFiles.First();
                 tbSubtitleFileName.Text = subtitleFiles.First();
                 tbSeriesName.Text = Path.GetFileName(folderSelector.SelectedPath);
             }
+        }
+
+        private void handleArchivedFiles(List<string> archivedFiles)
+        {
+            foreach (var archivedFile in archivedFiles)
+            {
+                string zipPath = archivedFile;
+                string extractPath = Path.GetDirectoryName(archivedFile);
+
+                // Normalizes the path.
+                extractPath = Path.GetFullPath(extractPath);
+
+                // Ensures that the last character on the extraction path
+                // is the directory separator char. 
+                // Without this, a malicious zip file could try to traverse outside of the expected
+                // extraction path.
+                if (!extractPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    extractPath += Path.DirectorySeparatorChar;
+
+                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+                {
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        if (entry.FullName.EndsWith(".srt", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Gets the full path to ensure that relative segments are removed.
+                            string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.FullName));
+
+                            // Ordinal match is safest, case-sensitive volumes can be mounted within volumes that
+                            // are case-insensitive.
+                            if (destinationPath.StartsWith(extractPath, StringComparison.Ordinal) && !File.Exists(destinationPath))
+                            {
+                                entry.ExtractToFile(destinationPath);
+                            }
+                        }
+                    }
+                }
+            };
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
